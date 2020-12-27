@@ -16,6 +16,7 @@ function probarValidarNombre() {
 probarValidarNombre();
 */
 
+console.log('ejecutando pruebas');
 
 function probarCalcularPromedio() {
     console.assert( 
@@ -23,4 +24,30 @@ function probarCalcularPromedio() {
         'calcularPromedio no promedia'
         );
 }
+
 probarCalcularPromedio();
+
+function probarValidarCantidad() {
+    console.assert(
+        validarEnteroPositivo('10.8') === 'Ingresar un número entero positivo',
+        'validarCantIntegrantes no valida decimales'
+    )
+    console.assert(
+        validarEnteroPositivo(-10) === 'Ingresar un número entero positivo',
+        'validarCantIntegrantes no valida negativos'
+    )
+    console.assert(
+        validarEnteroPositivo('a') === 'Ingresar un número entero positivo',
+        'validarCantIntegrantes no valida letras'
+    )
+    console.assert(
+        validarEnteroPositivo(21, 20) === 'Ingrese un número menor a 20',
+        'validarCantIntegrantes no valida entradas correctas'
+    )
+    console.assert(
+        validarEnteroPositivo(20, 20) === '',
+        'validarCantIntegrantes no valida entradas correctas'
+    )
+}
+
+probarValidarCantidad();
