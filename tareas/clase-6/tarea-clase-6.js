@@ -6,54 +6,77 @@ Al hacer click en "calcular", mostrar en un elemento pre-existente la mayor edad
 Punto bonus: Crear un botón para "empezar de nuevo" que empiece el proceso nuevamente, borrando los inputs ya creados (investigar cómo en MDN).
 */
 
-document.querySelector('#aceptarIntegrantes').onclick = function(){
-    crearImputs(Number(document.querySelector('#cantidadIntegrantes').value));
-    document.formEdades.style = '';      //muestra formEdades
-    document.querySelector('#botonCalcular').style ='';   //muestra botonCalcular
-    ocultaElemento('formIntegrantes');
-    ocultaElemento('aceptarIntegrantes');
+document.querySelector('#aceptarIntegrantes').onclick = function () {
+    const $cantidadIntegrantes = Number(document.querySelector('#cantidadIntegrantes').value);
+    if (!validarEnteroPositivo($cantidadIntegrantes, 20)) {
+        crearImputs($cantidadIntegrantes);
+        document.formEdades.style = '';      //muestra formEdades
+        document.querySelector('#botonCalcular').style = '';   //muestra botonCalcular
+        ocultaElemento('formIntegrantes');
+        ocultaElemento('aceptarIntegrantes');
+    }
+    else
+        console.log('error');
 }
-document.querySelector('#botonCalcular').onclick = function(){
+document.querySelector('#botonCalcular').onclick = function () {
     let edades = tomarEdades('.inputEdad');
-    
     //mostrar div
-    document.querySelector('#resultados').style = '';
-    
-    document.querySelector('#promedioEdad').value = calcularPromedio(edades, 2);
-    document.querySelector('#edadMayor').value = Math.max(...edades);
-    document.querySelector('#edadMenor').value = Math.min(...edades);
+    if (!validarEdades(edades, 100)) {
+        document.querySelector('#resultados').style = '';
+        document.querySelector('#promedioEdad').value = calcularPromedio(edades, 2);
+        document.querySelector('#edadMayor').value = Math.max(...edades);
+        document.querySelector('#edadMenor').value = Math.min(...edades);
+    } else 
+    console.log ('error');
 }
 
+function validarEnteroPositivo(cantidad, maximo) {
+    if (!/^[0-9]+$/.test(cantidad)) {
+        return 'Ingresar un número entero positivo';
+    }
+    if (cantidad > maximo)
+        return `Ingrese un número menor a ${maximo}`;
+    return '';
+}
 
-function ocultaElemento(id){
+function validarEdades(edades, maximo) {
+    let contador = 0;
+    edades.forEach(function (edad) {
+        if (validarEnteroPositivo(edad, maximo))
+            contador++;
+    });
+    return contador;
+}
+
+function ocultaElemento(id) {
     document.querySelector(`#${id}`).style.display = 'none';
 }
-function tomarEdades(clase){
-    const edades = document.querySelectorAll(clase);
+function tomarEdades(clase) {
+    const $edades = document.querySelectorAll(clase);
     let arreglo = [];
-    for (let i=0; i < edades.length; i++){
-        edades[i].value != 0 ? arreglo.push(Number(edades[i].value)) : '';
+    for (let i = 0; i < $edades.length; i++) {
+        $edades[i].value != 0 ? arreglo.push(Number($edades[i].value)) : '';
     }
     return arreglo;
 }
-function calcularPromedio(arreglo, cantDecimales){
+function calcularPromedio(arreglo, cantDecimales) {
     let sumatoria = 0;
-    for( let i = 0; i<arreglo.length; i++){
+    for (let i = 0; i < arreglo.length; i++) {
         sumatoria += arreglo[i];
     }
     return (sumatoria / arreglo.length).toFixed(cantDecimales);
 }
-function crearImputs(cantidad){
-    for (let i=1; i<=cantidad; i++){
+function crearImputs(cantidad) {
+    for (let i = 1; i <= cantidad; i++) {
 
         const nuevoLabel = document.createElement('label');
         const nuevoInput = document.createElement('input');
         const br = document.createElement('br');
-        
+
         nuevoLabel.textContent = 'Edad: ';
         nuevoInput.className = 'inputEdad'
         nuevoInput.placeholder = 'Familiar ' + i;
-        nuevoInput.value = 5 + 2*i;
+        nuevoInput.value = 5 + 2 * i;
 
         document.formEdades.appendChild(nuevoLabel);
         document.formEdades.appendChild(nuevoInput);
