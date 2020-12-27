@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset='utf-8'>
+    <meta http-equiv='X-UA-Compatible' content='IE=edge'>
+    <title>Page Title</title>
+    <meta name='viewport' content='width=device-width, initial-scale=1'>
+    <link rel='stylesheet' type='text/css' media='screen' href='main.css'>
+    <!--
+        <script src='main.js'></script>
+    -->
+</head>
+<body>
+    <form action="" id="formIntegrantes">
+        <label for="">Llená el formulario</label><br>
+        <input type="text" placeholder="Cuantos integrantes tiene tu familia" id="cantidadIntegrantes" value = 10><br>
+    </form>
+    <button type="button" id="aceptarIntegrantes">Aceptar</button>
+    <div>
+        <form id="formEdades" name="formEdades" style ='display: none'>
+        </form>
+        <button type="button" id="botonCalcular" style ='display: none'>Calcular</button>
+    </div> 
+    <div id="resultados" style="display: none;">
+        <label >Edad promedio: </label>
+        <input type="text" disabled value="" id="promedioEdad"><br>
+        <label >El mayor tiene: </label>
+        <input type="text" disabled value="" id="edadMayor"><br>
+        <label >El menor tiene: </label>
+        <input type="text" disabled value="" id="edadMenor"><br>
+    </div>
+    <script src="tarea-clase-6.js" id="scriptSrc"></script>
+    <script src="pruebas.js"></script>
+</body>
+</html>
